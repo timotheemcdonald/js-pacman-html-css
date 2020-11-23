@@ -4,4 +4,31 @@
     width: 560px;
     height: 560px;
     border: solid black;
+    background-color:black;
+}
+
+.grid div {
+    width: 20px;
+    height: 20px;
+}
+
+.pac-dot {
+    background-color: ivory;
+    border: 5px solid black;
+    box-sizing: border-box;
+    border-radius:10px;
+}
+
+.wall {
+    background-color: darkblue;
+}
+
+.power-pellet {
+    background-color:gold;
+    border-radius: 10px;
+}
+
+.pac-man {
+    background-color: yellow;
+    border-radius: 10px;
 }
