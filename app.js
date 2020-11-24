@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const scoreDisplay = document.getElementById('score')
     const width = 28 //28x28 = 784 squares
 
+    let score = 0
+
     //layout of grid adn what is in the squares
     const layout = [
         1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -79,6 +81,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     && !squares[pacmanCurrentIndex -1].classList.contains('wall')
                     && !squares[pacmanCurrentIndex -1].classList.contains('ghost-lair')
                     ) pacmanCurrentIndex -=1
+
+                if((pacmanCurrentIndex -1) === 363){
+                    pacmanCurrentIndex = 391
+                }
                 break
             case 38:
                 if(pacmanCurrentIndex - width >= 0 
@@ -91,6 +97,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     && !squares[pacmanCurrentIndex +1].classList.contains('wall')
                     && !squares[pacmanCurrentIndex +1].classList.contains('ghost-lair')
                     ) pacmanCurrentIndex +=1
+
+                if((pacmanCurrentIndex + 1) === 392){
+                    pacmanCurrentIndex = 364
+                }
                 break
             case 40:
                 if(pacmanCurrentIndex + width < width * width 
@@ -102,12 +112,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
         squares[pacmanCurrentIndex].classList.add('pac-man')
 
-        //pacDotEaten()
+        pacDotEaten()
         //powerPelletEaten()
         //checkForGameOver()
         //checkForWin()
 
     }
     document.addEventListener('keyup', movePacman)
+
+    //what happens when Pac Man eats a pellet
+    function pacDotEaten(){
+        if(squares[pacmanCurrentIndex].classList.contains('pac-dot')){
+            score++
+            scoreDisplay.innerHTML = score
+            squares[pacmanCurrentIndex].classList.remove('pac-dot')
+        }
+    }
+
+    //create our Ghost Template
+    class Ghost {
+        constructor(className, startIndex, speed){
+            this.className = className
+            this.startIndex = startIndex
+            this.speed = speed
+            this.currentIndex = startIndex
+            this.timerId = NaN
+        }
+    }
+
+    ghosts = [
+        new Ghost('blinky', 348, 250),
+        new Ghost('pinky', 376, 400),
+        new Ghost('inky', 351, 300),
+        new Ghost('clyde', 379, 500)
+    ]
 
 })
